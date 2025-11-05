@@ -165,7 +165,7 @@ echo -e "${YELLOW}[7/8] Instalando Lazydocker...${NC}"
 yay -S --noconfirm lazydocker-bin
 echo -e "${GREEN}✓ Lazydocker instalado${NC}"
 
-# Criar atalho do Lazydocker com ícone docker.png
+# Criar atalho do Lazydocker com ícone docker.svg
 echo -e "${YELLOW}Criando atalho do Lazydocker...${NC}"
 
 # Diretórios e caminhos
@@ -173,18 +173,18 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd || echo 
 APPLICATIONS_DIR="$HOME/.local/share/applications"
 DESKTOP_FILE="$APPLICATIONS_DIR/lazydocker.desktop"
 ICON_DIR="$HOME/.local/share/icons"
-ICON_DEST="$ICON_DIR/docker.png"
+ICON_DEST="$ICON_DIR/docker.svg"
 
 mkdir -p "$APPLICATIONS_DIR" "$ICON_DIR"
 
-# Encontrar a imagem docker.png preferindo repo/images, depois /images, depois ~/images
+# Encontrar a imagem docker.svg preferindo repo/images, depois /images, depois ~/images
 ICON_SOURCE=""
-if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/images/docker.png" ]; then
-    ICON_SOURCE="$SCRIPT_DIR/images/docker.png"
-elif [ -f "/images/docker.png" ]; then
-    ICON_SOURCE="/images/docker.png"
-elif [ -f "$HOME/images/docker.png" ]; then
-    ICON_SOURCE="$HOME/images/docker.png"
+if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/images/docker.svg" ]; then
+    ICON_SOURCE="$SCRIPT_DIR/images/docker.svg"
+elif [ -f "/images/docker.svg" ]; then
+    ICON_SOURCE="/images/docker.svg"
+elif [ -f "$HOME/images/docker.svg" ]; then
+    ICON_SOURCE="$HOME/images/docker.svg"
 fi
 
 ICON_ENTRY="lazydocker"
@@ -193,7 +193,7 @@ if [ -n "$ICON_SOURCE" ]; then
     ICON_ENTRY="$ICON_DEST"
     echo -e "${GREEN}✓ Ícone copiado para $ICON_DEST${NC}"
 else
-    echo -e "${YELLOW}Imagem docker.png não encontrada em images/. Usando ícone padrão do sistema.${NC}"
+    echo -e "${YELLOW}Imagem docker.svg não encontrada em images/. Usando ícone padrão do sistema.${NC}"
 fi
 
 # Escolher comando Exec: usar Konsole se disponível
