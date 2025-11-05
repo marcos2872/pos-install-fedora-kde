@@ -77,6 +77,7 @@ chmod +x pos-install.sh
   - zsh: `source ~/.zshrc`
 - O script tenta instalar/atualizar o NVM para a última versão disponível via GitHub Releases (com fallback).
 - O pnpm é instalado e ativado via Corepack quando possível.
+- O atalho do Lazydocker usa o ícone `images/docker.svg` se existir; caso contrário, tenta baixá-lo deste repositório automaticamente.
 - Com sudoers NOPASSWD para Docker, você poderá usar `sudo docker ...` sem pedir senha. Alternativa segura: já é possível usar `docker ...` sem sudo por estar no grupo `docker` (recomendada). Para reverter o NOPASSWD: `sudo rm -f /etc/sudoers.d/10-docker-nopasswd`.
 
 ## Solução de problemas
