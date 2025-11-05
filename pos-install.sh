@@ -173,6 +173,24 @@ else
     echo -e "${YELLOW}✗ Brave não instalado${NC}"
 fi
 
+# Instalar Zoom (opcional)
+read -p "Deseja instalar o Zoom? (s/n) " install_zoom
+if [[ "$install_zoom" == "s" ]]; then
+    yay -S --noconfirm zoom
+    echo -e "${GREEN}✓ Zoom instalado${NC}"
+else
+    echo -e "${YELLOW}✗ Zoom não instalado${NC}"
+fi
+
+# Instalar Obsidian (opcional)
+read -p "Deseja instalar o Obsidian? (s/n) " install_obsidian
+if [[ "$install_obsidian" == "s" ]]; then
+    yay -S --noconfirm obsidian
+    echo -e "${GREEN}✓ Obsidian instalado${NC}"
+else
+    echo -e "${YELLOW}✗ Obsidian não instalado${NC}"
+fi
+
 # Instalar Claude Desktop (opcional)
 read -p "Deseja instalar o Claude Desktop? (s/n) " install_claude
 if [[ "$install_claude" == "s" ]]; then
@@ -185,7 +203,7 @@ fi
 # Instalar Zed (opcional)
 read -p "Deseja instalar o Zed? (s/n) " install_zed
 if [[ "$install_zed" == "s" ]]; then
-    curl -fsSL https://zed.dev/download | sh
+    curl -f https://zed.dev/install.sh | sh
     echo -e "${GREEN}✓ Zed instalado${NC}"
 else
     echo -e "${RED}✗ Instalação do Zed pulada${NC}"
