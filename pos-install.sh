@@ -297,6 +297,13 @@ if command -v zsh &> /dev/null; then
 fi
 
 # ===============================================
+# 5.2. INSTALAR DOCKER E DOCKER COMPOSE
+# ===============================================
+echo -e "${YELLOW}Instalando Docker e Docker Compose...${NC}"
+sudo pacman -S --needed --noconfirm docker docker-compose docker-buildx
+echo -e "${GREEN}✓ Docker e Docker Compose instalados${NC}"
+
+# ===============================================
 # 6. HABILITAR SERVIÇOS
 # ===============================================
 echo -e "${YELLOW}Habilitando serviços do sistema...${NC}"
@@ -313,6 +320,23 @@ echo -e "${GREEN}✓ Serviços habilitados${NC}"
 echo -e "${YELLOW}Adicionando usuário aos grupos necessários...${NC}"
 sudo usermod -aG docker,libvirt,kvm $USER
 echo -e "${GREEN}✓ Usuário adicionado aos grupos${NC}"
+
+# ===============================================
+# 7.1. CONFIGURAR SUDO PARA DOCKER (NOPASSWD)
+# ===============================================
+echo -e "${YELLOW}Configurando sudo para docker (NOPASSWD)...${NC}"
+SUDO_DOCKER_FILE="/etc/sudoers.d/10-docker-nopasswd"
+sudo tee "$SUDO_DOCKER_FILE" > /dev/null << 'EOF'
+Cmnd_Alias DOCKER_CMDS = /usr/bin/docker, /usr/bin/docker-compose, /usr/bin/docker-buildx
+%docker ALL=(ALL) NOPASSWD: DOCKER_CMDS
+EOF
+sudo chmod 440 "$SUDO_DOCKER_FILE"
+if sudo visudo -cf "$SUDO_DOCKER_FILE" >/dev/null; then
+    echo -e "${GREEN}✓ Regra sudoers criada: $SUDO_DOCKER_FILE${NC}"
+else
+    echo -e "${RED}Falha ao validar sudoers ($SUDO_DOCKER_FILE). Removendo arquivo para segurança.${NC}"
+    sudo rm -f "$SUDO_DOCKER_FILE"
+fi
 
 echo ""
 echo -e "${GREEN}========================================${NC}"
@@ -335,6 +359,7 @@ echo -e "${BLUE}Aplicativos instalados:${NC}"
 echo "  • Visual Studio Code"
 echo "  • Google Chrome"
 echo "  • Lazydocker"
+echo "  • Docker"
 echo "  • Brave Browser"
 echo "  • Discord"
 echo "  • Postman"

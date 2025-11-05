@@ -12,6 +12,8 @@ Script de pós-instalação para sistemas Arch Linux/KDE Plasma com SDDM. Automa
 - Instala Rust (rustup) e carrega o ambiente.
 - Instala NVM e Node.js LTS; define LTS como padrão.
 - Garante pnpm (via Corepack; fallback `npm -g`).
+- Instala Docker, Docker Compose e Docker Buildx.
+- Configura sudoers para permitir que membros do grupo `docker` executem `docker`, `docker-compose` e `docker-buildx` sem senha (NOPASSWD).
 - Instala apps do AUR: Visual Studio Code, Google Chrome, Lazydocker, Brave, Discord, Postman.
 - Habilita serviços: `sddm`, `NetworkManager`, `bluetooth`, `docker`, `libvirtd`.
 - Adiciona o usuário aos grupos: `docker`, `libvirt`, `kvm`.
@@ -75,6 +77,7 @@ chmod +x pos-install.sh
   - zsh: `source ~/.zshrc`
 - O script tenta instalar/atualizar o NVM para a última versão disponível via GitHub Releases (com fallback).
 - O pnpm é instalado e ativado via Corepack quando possível.
+- Com sudoers NOPASSWD para Docker, você poderá usar `sudo docker ...` sem pedir senha. Alternativa segura: já é possível usar `docker ...` sem sudo por estar no grupo `docker` (recomendada). Para reverter o NOPASSWD: `sudo rm -f /etc/sudoers.d/10-docker-nopasswd`.
 
 ## Solução de problemas
 
