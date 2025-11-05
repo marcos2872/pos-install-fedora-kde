@@ -232,6 +232,10 @@ echo -e "${YELLOW}[8/8] Instalando pacotes extras...${NC}"
 yay -S --noconfirm brave-bin discord postman-bin
 echo -e "${GREEN}✓ Pacotes extras instalados${NC}"
 
+echo -e "${YELLOW}Instalando GitHub CLI...${NC}"
+sudo pacman -S --needed --noconfirm github-cli
+echo -e "${GREEN}✓ GitHub CLI instalado${NC}"
+
 # ===============================================
 # 5.1. CONFIGURAR TEMA STARSHIP (PROMPT TERMINAL)
 # ===============================================
@@ -301,6 +305,13 @@ fi
 echo -e "${YELLOW}Instalando Docker e Docker Compose...${NC}"
 sudo pacman -S --needed --noconfirm docker docker-compose docker-buildx
 echo -e "${GREEN}✓ Docker e Docker Compose instalados${NC}"
+
+# ===============================================
+# 5.3. INSTALAR LIBVIRT E QEMU
+# ===============================================
+echo -e "${YELLOW}Instalando libvirt, QEMU e ferramentas de virtualização...${NC}"
+sudo pacman -S --needed --noconfirm libvirt qemu-full virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat
+echo -e "${GREEN}✓ libvirt, QEMU e ferramentas de virtualização instalados${NC}"
 
 # ===============================================
 # 6. HABILITAR SERVIÇOS
