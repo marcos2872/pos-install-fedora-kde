@@ -161,9 +161,17 @@ echo -e "${YELLOW}[6/8] Instalando Google Chrome...${NC}"
 yay -S --noconfirm google-chrome
 echo -e "${GREEN}✓ Chrome instalado${NC}"
 
-echo -e "${YELLOW}[8/8] Instalando pacotes extras...${NC}"
-yay -S --noconfirm brave-bin discord postman-bin
-echo -e "${GREEN}✓ Pacotes extras instalados${NC}"
+echo -e "${YELLOW}[8/8] Instalando Brave...${NC}"
+yay -S --noconfirm brave-bin
+echo -e "${GREEN}✓ Brave instalado${NC}"
+
+echo -e "${YELLOW}[8/8] Instalando Discord...${NC}"
+yay -S --noconfirm discord
+echo -e "${GREEN}✓ Discord instalado${NC}"
+
+echo -e "${YELLOW}[8/8] Instalando Postman...${NC}"
+yay -S --noconfirm postman-bin
+echo -e "${GREEN}✓ Postman instalado${NC}"
 
 echo -e "${YELLOW}Instalando GitHub CLI...${NC}"
 yay -S --needed --noconfirm github-cli
