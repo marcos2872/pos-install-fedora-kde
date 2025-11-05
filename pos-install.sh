@@ -226,15 +226,7 @@ StartupNotify=false
 EOF
 
 chmod +x "$DESKTOP_FILE"
-echo -e "${GREEN}✓ Atalho criado: $DESKTOP_FILE${NC}"
-
-# Copiar atalho para a Área de Trabalho (se existir diretório)
-DESKTOP_DIR=$(command -v xdg-user-dir &> /dev/null && xdg-user-dir DESKTOP || echo "$HOME/Desktop")
-if [ -d "$DESKTOP_DIR" ]; then
-    cp -f "$DESKTOP_FILE" "$DESKTOP_DIR/lazydocker.desktop"
-    chmod +x "$DESKTOP_DIR/lazydocker.desktop"
-    echo -e "${GREEN}✓ Atalho também disponível na Área de Trabalho: $DESKTOP_DIR/lazydocker.desktop${NC}"
-fi
+echo -e "${GREEN}✓ Atalho criado no menu: $DESKTOP_FILE${NC}"
 
 echo -e "${YELLOW}[8/8] Instalando pacotes extras...${NC}"
 yay -S --noconfirm brave-bin discord postman-bin
