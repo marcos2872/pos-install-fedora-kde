@@ -16,7 +16,7 @@ echo -e "${BLUE}========================================${NC}"
 echo ""
 
 # Verificar se está rodando como usuário normal
-if [ "$EUID" -eq 0 ]; then 
+if [ "$EUID" -eq 0 ]; then
     echo -e "${RED}ERRO: Não execute este script como root!${NC}"
     echo "Execute como usuário normal: bash /root/pos-instalacao.sh"
     exit 1
@@ -94,13 +94,13 @@ if [ ! -d "$HOME/.nvm" ]; then
         echo -e "${GREEN}Última versão do NVM: ${NVM_TAG}${NC}"
     fi
     curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_TAG}/install.sh | bash
-    
+
     # Carregar NVM no script atual
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    
+
     echo -e "${GREEN}✓ NVM instalado${NC}"
-    
+
     echo -e "${YELLOW}Instalando Node.js LTS...${NC}"
     nvm install --lts
     nvm use --lts
@@ -164,13 +164,13 @@ else
     echo -e "${YELLOW}✗ Discord não instalado${NC}"
 fi
 
-# Instalar VLC (opcional)
-read -p "Deseja instalar o VLC? (s/n) " install_vlc
-if [[ "$install_vlc" == "s" ]]; then
-    yay -S --noconfirm vlc vlc-plugins-all
-    echo -e "${GREEN}✓ VLC instalado${NC}"
+# Instalar Zoom (opcional)
+read -p "Deseja instalar o Zoom? (s/n) " install_zoom
+if [[ "$install_zoom" == "s" ]]; then
+    yay -S --noconfirm zoom
+    echo -e "${GREEN}✓ Zoom instalado${NC}"
 else
-    echo -e "${YELLOW}✗ VLC não instalado${NC}"
+    echo -e "${YELLOW}✗ Zoom não instalado${NC}"
 fi
 
 # Instalar LocalSend (opcional)
@@ -182,6 +182,24 @@ else
     echo -e "${YELLOW}✗ LocalSend não instalado${NC}"
 fi
 
+# Instalar Obsidian (opcional)
+read -p "Deseja instalar o Obsidian? (s/n) " install_obsidian
+if [[ "$install_obsidian" == "s" ]]; then
+    yay -S --noconfirm obsidian
+    echo -e "${GREEN}✓ Obsidian instalado${NC}"
+else
+    echo -e "${YELLOW}✗ Obsidian não instalado${NC}"
+fi
+
+# Instalar VLC (opcional)
+read -p "Deseja instalar o VLC? (s/n) " install_vlc
+if [[ "$install_vlc" == "s" ]]; then
+    yay -S --noconfirm vlc vlc-plugins-all
+    echo -e "${GREEN}✓ VLC instalado${NC}"
+else
+    echo -e "${YELLOW}✗ VLC não instalado${NC}"
+fi
+
 # Instalar Brave (opcional)
 read -p "Deseja instalar o Brave? (s/n) " install_brave
 if [[ "$install_brave" == "s" ]]; then
@@ -191,22 +209,13 @@ else
     echo -e "${YELLOW}✗ Brave não instalado${NC}"
 fi
 
-# Instalar Zoom (opcional)
-read -p "Deseja instalar o Zoom? (s/n) " install_zoom
-if [[ "$install_zoom" == "s" ]]; then
-    yay -S --noconfirm zoom
-    echo -e "${GREEN}✓ Zoom instalado${NC}"
+# Instalar Microsoft Edge (opcional)
+read -p "Deseja instalar o Microsoft Edge? (s/n) " install_microsoft_edge
+if [[ "$install_microsoft_edge" == "s" ]]; then
+    yay -S --noconfirm microsoft-edge-stable-bin
+    echo -e "${GREEN}✓ Microsoft Edge instalado${NC}"
 else
-    echo -e "${YELLOW}✗ Zoom não instalado${NC}"
-fi
-
-# Instalar Obsidian (opcional)
-read -p "Deseja instalar o Obsidian? (s/n) " install_obsidian
-if [[ "$install_obsidian" == "s" ]]; then
-    yay -S --noconfirm obsidian
-    echo -e "${GREEN}✓ Obsidian instalado${NC}"
-else
-    echo -e "${YELLOW}✗ Obsidian não instalado${NC}"
+    echo -e "${YELLOW}✗ Microsoft Edge não instalado${NC}"
 fi
 
 # Instalar Claude Desktop (opcional)
@@ -227,21 +236,30 @@ else
     echo -e "${YELLOW}✗ Zed não instalado${NC}"
 fi
 
+# Instalar VsCode (opcional)
+read -p "Deseja instalar o VsCode? (s/n) " install_vscode
+if [[ "$install_vscode" == "s" ]]; then
+    yay -S --noconfirm visual-studio-code-bin
+    echo -e "${GREEN}✓ VsCode instalado${NC}"
+else
+    echo -e "${YELLOW}✗ VsCode não instalado${NC}"
+fi
+
 # Instalar JetBrains Toolbox (opcional)
 read -p "Deseja instalar o jetbrains-toolbox? (s/n) " install_jetbrains
 if [[ "$install_jetbrains" == "s" ]]; then
     yay -S --noconfirm jetbrains-toolbox
     echo -e "${GREEN}✓ JetBrains Toolbox instalado${NC}"
-    
+
     # Desabilitar autostart do JetBrains Toolbox
     AUTOSTART_DIR="$HOME/.config/autostart"
     JETBRAINS_AUTOSTART="$AUTOSTART_DIR/jetbrains-toolbox.desktop"
-    
+
     if [ -f "$JETBRAINS_AUTOSTART" ]; then
         rm -f "$JETBRAINS_AUTOSTART"
         echo -e "${GREEN}✓ Autostart do JetBrains Toolbox desabilitado${NC}"
     fi
-    
+
     # Prevenir criação futura do autostart
     mkdir -p "$AUTOSTART_DIR"
     tee "$JETBRAINS_AUTOSTART" > /dev/null << 'EOF'
@@ -264,10 +282,6 @@ fi
 echo -e "${YELLOW}[5/9] Instalando Partition Manager...${NC}"
 yay -S --noconfirm partitionmanager
 echo -e "${GREEN}✓ Partition Manager instalado${NC}"
-
-echo -e "${YELLOW}[6/9] Instalando Visual Studio Code...${NC}"
-yay -S --noconfirm visual-studio-code-bin
-echo -e "${GREEN}✓ VSCode instalado${NC}"
 
 echo -e "${YELLOW}[7/9] Instalando Google Chrome...${NC}"
 yay -S --noconfirm google-chrome
@@ -351,7 +365,7 @@ tee "$DESKTOP_FILE" > /dev/null << EOF
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=Lazydocker
+Name=Docker
 Comment=UI de terminal para Docker e Docker Compose
 Exec=$EXEC_CMD
 Terminal=$TERMINAL_FLAG
