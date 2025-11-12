@@ -27,24 +27,10 @@ Script de pós-instalação para sistemas Arch Linux/KDE Plasma com SDDM. Automa
 
 ## Como usar sem baixar (direto do GitHub)
 
-Você pode executar diretamente com `curl`/`wget`. Revise o conteúdo do script se desejar antes de executar.
-
-Opção 1 (process substitution):
+Você pode executar diretamente com `curl`. Revise o conteúdo do script se desejar antes de executar.
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/marcos2872/pos-install-arch-kde/main/pos-install.sh)
-```
-
-Opção 2 (pipe com curl):
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/marcos2872/pos-install-arch-kde/main/pos-install.sh | bash
-```
-
-Opção 3 (pipe com wget):
-
-```bash
-wget -qO- https://raw.githubusercontent.com/marcos2872/pos-install-arch-kde/main/pos-install.sh | bash
 ```
 
 > Aviso: "pipe to bash" é prático, mas potencialmente arriscado. Use apenas se confiar no conteúdo. Alternativa: baixe o arquivo, revise e execute localmente.
