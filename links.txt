@@ -1,0 +1,138 @@
+development-tools
+
+sudo dnf install @development-tools
+
+======================================================================================
+
+Rust
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+======================================================================================
+
+Node
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+\. "$HOME/.nvm/nvm.sh"
+
+nvm install 22
+node -v
+npm -v
+
+corepack enable pnpm
+pnpm -v
+
+corepack enable yarn
+yarn -v
+
+======================================================================================
+
+linux toys
+
+curl -fsSL https://linux.toys/install.sh | bash
+
+======================================================================================
+
+brave
+
+curl -fsS https://dl.brave.com/install.sh | sh
+
+======================================================================================
+
+gh
+
+sudo dnf install -y gh
+read -p "Digite seu nome para o Git: " git_name
+read -p "Digite seu email para o Git: " git_email
+if [ -n "$git_name" ] && [ -n "$git_email" ]; then
+    git config --global user.name "$git_name"
+    git config --global user.email "$git_email"
+    echo -e "${GREEN}✓ Git configurado:${NC}"
+    echo -e "  Nome: $git_name"
+    echo -e "  Email: $git_email"
+else
+    echo -e "Configuração do Git pulada (nome ou email vazio)"
+fi
+
+======================================================================================
+
+zed
+
+curl -f https://zed.dev/install.sh | sh
+
+======================================================================================
+
+docker
+
+sudo dnf install -y docker docker-compose docker-buildx
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+
+======================================================================================
+
+lazydocker
+
+curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
+# Criar atalho do Lazydocker com ícone docker.png
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd || echo "")
+APPLICATIONS_DIR="$HOME/.local/share/applications"
+DESKTOP_FILE="$APPLICATIONS_DIR/lazydocker.desktop"
+ICON_DIR="$HOME/.local/share/icons"
+ICON_DEST="$ICON_DIR/docker.png"
+
+mkdir -p "$APPLICATIONS_DIR" "$ICON_DIR"
+
+ICON_SOURCE=""
+if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/images/docker.png" ]; then
+    ICON_SOURCE="$SCRIPT_DIR/images/docker.png"
+elif [ -f "/images/docker.png" ]; then
+    ICON_SOURCE="/images/docker.png"
+elif [ -f "$HOME/images/docker.png" ]; then
+    ICON_SOURCE="$HOME/images/docker.png"
+fi
+
+ICON_ENTRY="lazydocker"
+if [ -n "$ICON_SOURCE" ]; then
+    cp -f "$ICON_SOURCE" "$ICON_DEST"
+    ICON_ENTRY="$ICON_DEST"
+else
+    ICON_URL="https://raw.githubusercontent.com/marcos2872/pos-install-arch-kde/main/images/docker.png"
+    if curl -fsSL "$ICON_URL" -o "$ICON_DEST"; then
+        ICON_ENTRY="$ICON_DEST"
+        echo -e "${GREEN}✓ Ícone baixado de $ICON_URL para $ICON_DEST${NC}"
+    else
+        echo -e "Imagem docker.png não encontrada e download falhou; usando ícone padrão do sistema."
+    fi
+fi
+
+if command -v alacritty &> /dev/null; then
+    EXEC_CMD="alacritty -e lazydocker"
+    TERMINAL_FLAG="false"
+else
+    EXEC_CMD="lazydocker"
+    TERMINAL_FLAG="true"
+fi
+
+tee "$DESKTOP_FILE" > /dev/null << EOF
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Docker
+Comment=UI de terminal para Docker e Docker Compose
+Exec=$EXEC_CMD
+Terminal=$TERMINAL_FLAG
+Icon=$ICON_ENTRY
+Categories=System;Utility;Development;
+StartupNotify=false
+EOF
+
+chmod +x "$DESKTOP_FILE"
+echo -e "✓ Atalho criado no menu: $DESKTOP_FILE"
+
+======================================================================================
