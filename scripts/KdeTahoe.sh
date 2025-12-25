@@ -181,6 +181,36 @@ fi
 pause_on_error
 echo "✅ Widgets configurados!"
 
+# 9. Alterar ícone do Application Launcher
+echo ""
+echo "   - Atualizando ícone do Application Launcher para 'fedora-logo-icon'..."
+UPDATE_ICON_SCRIPT=$(cat <<EOF
+var allPanels = panels();
+for (var i = 0; i < allPanels.length; i++) {
+    var p = allPanels[i];
+    var widgets = p.widgets();
+    for (var j = 0; j < widgets.length; j++) {
+        var w = widgets[j];
+        if (w.type == "org.kde.plasma.kickoff" || w.type == "org.kde.plasma.kicker" || w.type == "org.kde.plasma.kickerdash") {
+            w.currentConfigGroup = ["General"];
+            w.writeConfig("icon", "fedora-logo-icon");
+            w.reloadConfig();
+        }
+    }
+}
+EOF
+)
+
+if command -v qdbus-qt5 &> /dev/null; then
+    qdbus-qt5 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$UPDATE_ICON_SCRIPT" 2>&1
+elif command -v qdbus &> /dev/null; then
+    qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$UPDATE_ICON_SCRIPT" 2>&1
+else
+    echo "⚠️  Não foi possível encontrar qdbus para alterar o ícone."
+fi
+pause_on_error
+echo "✅ Ícone atualizado!"
+
 echo ""
 echo "╔════════════════════════════════════════════════════════════╗"
 echo "║ ✅ INSTALAÇÃO CONCLUÍDA!                                   ║"
