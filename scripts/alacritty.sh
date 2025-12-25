@@ -16,7 +16,7 @@ pause_on_error() {
 
 # 1. Instalar dependências (git e fonte Fira Code como substituta da Menlo)
 echo "📦 Instalando dependências..."
-sudo dnf install -y alacritty git fira-code-fonts 2>&1
+sudo dnf install -y alacritty 2>&1
 pause_on_error
 echo "✅ Dependências instaladas!"
 echo ""
