@@ -7,10 +7,8 @@ Este repositório contém scripts de instalação e arquivos auxiliares para apl
 
 ## Estrutura do repositório
 - `KdeTahoe.sh` — Script principal para aplicar o tema/visual "Tahoe" no KDE.
-- `WhiteSur.sh` — Script para aplicar o tema "WhiteSur".
-- `macos-alacritty.sh` — Script com configurações para o Alacritty (estética macOS).
+- `alacritty.sh` — Script com configurações para o Alacritty (estética macOS).
 - `links.txt` — Lista de links úteis (temas, ícones, tutoriais).
-- `images/` — Pasta com imagens de referência / prévias dos temas.
 
 ## Requisitos
 - Sistema: Fedora (ou outra distro com KDE Plasma).
@@ -23,12 +21,11 @@ Este repositório contém scripts de instalação e arquivos auxiliares para apl
      - `cd pos-install-fedora-kde`
 
 2. Torne os scripts executáveis (se ainda não estiverem):
-   - `chmod +x KdeTahoe.sh WhiteSur.sh macos-alacritty.sh`
+   - `chmod +x KdeTahoe.sh alacritty.sh`
 
 3. Execute o script desejado:
    - `./KdeTahoe.sh`
-   - `./WhiteSur.sh`
-   - `./macos-alacritty.sh`
+   - `./alacritty.sh`
 
 Observações:
 - Leia `links.txt` para referências externas e dependências que podem ser necessárias.
@@ -38,11 +35,8 @@ Observações:
 - `KdeTahoe.sh`
   - Automatiza a instalação/aplicação do tema "Tahoe" no KDE Plasma.
   - Pode copiar arquivos de temas para `~/.local/share/plasma/` ou diretórios similares.
-- `WhiteSur.sh`
-  - Aplica o tema "WhiteSur" (estilo inspirado no macOS).
-  - Pode configurar ícones, cores e outros recursos visuais.
-- `macos-alacritty.sh`
-  - Fornece configurações (ex.: `alacritty.yml`) para deixar o terminal Alacritty com aparência semelhante ao macOS.
+- `alacritty.sh`
+  - Fornece configurações (ex.: `alacritty.toml`) para deixar o terminal Alacritty com aparência semelhante ao macOS.
 - `links.txt`
   - Coleção de URLs úteis (temas, ícones, tutoriais e fontes).
 
