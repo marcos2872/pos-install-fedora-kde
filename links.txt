@@ -94,3 +94,46 @@ sudo dnf makecache
 sudo dnf install antigravity
 
 ======================================================================================
+
+Podman
+
+sudo dnf install -y podman podman-docker podman-compose
+
+flatpak install flathub io.podman_desktop.PodmanDesktop
+
+======================================================================================
+
+lazydocker
+
+sudo dnf copr enable atim/lazydocker
+
+sudo dnf install lazydocker
+
+
+Opção 1:
+
+mkdir ~/.config/lazydocker/
+touch ~/.config/lazydocker/config.yml
+
+use o nano para editar o arquivo
+config.yml <= commandTemplates:
+  docker: podman
+  dockerCompose: podman-compose
+
+
+Opção 2:
+
+# Ativar o socket (necessário uma única vez)
+systemctl --user enable --now podman.socket
+
+# Verificar que está ativo
+systemctl --user list-sockets podman.socket
+
+# Exportar variável de ambiente
+export DOCKER_HOST=unix:///run/user/1000/podman/podman.sock
+
+# Adicionar ao ~/.bashrc ou ~/.zshrc para persistência
+echo 'export DOCKER_HOST=unix:///run/user/1000/podman/podman.sock' >> ~/.bashrc
+
+# Criar alias (opcional)
+alias lazypodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
