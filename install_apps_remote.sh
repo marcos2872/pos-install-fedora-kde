@@ -41,6 +41,7 @@ MODULE_ORDER=(
   "antigravity.sh"
   "podman.sh"
   "datagrip.sh"
+  "postman.sh"
   "brave.sh"
   "chrome.sh"
   "claude.sh"
