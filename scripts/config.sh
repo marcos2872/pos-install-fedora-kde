@@ -95,32 +95,51 @@ pause_on_error
 
 # 4) Adicionar Widgets ao Painel (System Monitor + Cursor Eyes)
 echo ""
-echo "🛠️  Adicionando widgets ao painel (System Monitor + Cursor Eyes)..."
-ADD_WIDGETS_SCRIPT=$(cat <<'EOF'
-var allPanels = panels();
-if (allPanels.length > 0) {
-    var p = allPanels[0];
-    // Tenta adicionar System Monitor (pode variar conforme Plasma)
-    try { p.addWidget("org.kde.plasma.systemmonitor"); } catch (e) {}
-    // Adiciona Cursor Eyes
-    try { p.addWidget("luisbocanegra.cursor.eyes"); } catch (e) {}
+echo "🛠️  Recriando painel único inferior e adicionando widgets essenciais..."
+PANEL_SCRIPT=$(cat <<'EOF'
+function removeAllPanels() {
+    var ps = panels();
+    for (var i = 0; i < ps.length; i++) {
+        try { ps[i].remove(); } catch (e) {}
+    }
 }
+function createBottomPanel() {
+    var p = new Panel;
+    p.location = "bottom";
+    try { p.height = 40; } catch (e) {}
+    // Widgets essenciais do painel
+    // Launcher à esquerda
+    try { p.addWidget("org.kde.plasma.kickoff"); } catch (e) {}
+    // Tarefas ao lado do launcher
+    try { p.addWidget("org.kde.plasma.icontasks"); } catch (e) {}
+    // Espaçador para empurrar os widgets seguintes para a direita
+    try { p.addWidget("org.kde.plasma.panelspacer"); } catch (e) {}
+    // Widgets à direita
+    try { p.addWidget("org.kde.plasma.systemtray"); } catch (e) {}
+    try { p.addWidget("org.kde.plasma.digitalclock"); } catch (e) {}
+    // Widgets solicitados
+    try { p.addWidget("org.kde.plasma.systemmonitor"); } catch (e) {}
+    try { p.addWidget("luisbocanegra.cursor.eyes"); } catch (e) {}
+    return p;
+}
+removeAllPanels();
+createBottomPanel();
 EOF
 )
 
 if command -v qdbus6 &> /dev/null; then
-    qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$ADD_WIDGETS_SCRIPT" 2>&1
+    qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$PANEL_SCRIPT" 2>&1
 elif command -v qdbus-qt6 &> /dev/null; then
-    qdbus-qt6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$ADD_WIDGETS_SCRIPT" 2>&1
+    qdbus-qt6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$PANEL_SCRIPT" 2>&1
 elif command -v qdbus-qt5 &> /dev/null; then
-    qdbus-qt5 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$ADD_WIDGETS_SCRIPT" 2>&1
+    qdbus-qt5 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$PANEL_SCRIPT" 2>&1
 elif command -v qdbus &> /dev/null; then
-    qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$ADD_WIDGETS_SCRIPT" 2>&1
+    qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$PANEL_SCRIPT" 2>&1
 else
-    echo "⚠️  qdbus não encontrado. Pulo a configuração automática de widgets."
+    echo "⚠️  qdbus não encontrado. Pulo a reconfiguração de painel."
 fi
 pause_on_error
-echo "✅ Widgets configurados!"
+echo "✅ Painel único inferior configurado!"
 
 # 5) Alterar ícone do Application Launcher
 echo ""
