@@ -33,7 +33,7 @@ is_installed() {
 
     # Verifica se há um pacote flatpak instalado contendo 'audiorelay' no nome ou na descrição
     if command -v flatpak >/dev/null 2>&1; then
-        if flatpak list --app --columns=application | grep -i audiorelay >/dev/null 2>&1; then
+        if flatpak list --app --columns=application 2>/dev/null | grep -i audiorelay >/dev/null 2>&1; then
             echo "flatpak"
             return 0
         fi
@@ -67,7 +67,7 @@ if [ -z "$search_output" ]; then
 fi
 
 # Extrai o primeiro identificador que pareça com um ID de aplicação (contendo ponto) ou a primeira linha útil
-package_name="$(printf '%s\n' \"$search_output\" | awk 'NF {print $1; exit}')"
+package_name="$(printf '%s\n' "$search_output" | awk 'NF {print $1; exit}')"
 
 if [ -z "$package_name" ]; then
     warn "Não foi possível identificar um pacote Flatpak a partir da busca."
