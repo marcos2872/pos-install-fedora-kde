@@ -1,4 +1,4 @@
 #!/bin/bash
 
-flatpak install --user -y flathub com.getpostman.Postman
+flatpak install -y flathub com.getpostman.Postman
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo dnf install -y podman podman-docker podman-compose
-flatpak install --user -y flathub io.podman_desktop.PodmanDesktop
+flatpak install -y flathub io.podman_desktop.PodmanDesktop
 
 echo "Instalando Lazydocker..."
 sudo dnf copr enable -y atim/lazydocker

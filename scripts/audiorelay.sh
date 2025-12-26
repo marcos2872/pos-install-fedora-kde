@@ -1,3 +1,3 @@
 #!/bin/bash
 
-flatpak install --user -y net.audiorelay.AudioRelay
+flatpak install -y net.audiorelay.AudioRelay

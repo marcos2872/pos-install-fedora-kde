@@ -1,3 +1,3 @@
 #!/bin/bash
 
-flatpak install --user -y flathub com.jetbrains.DataGrip
+flatpak install -y flathub com.jetbrains.DataGrip
