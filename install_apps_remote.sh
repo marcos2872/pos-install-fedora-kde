@@ -40,6 +40,7 @@ MODULE_ORDER=(
   "zed.sh"
   "antigravity.sh"
   "podman.sh"
+  "datagrip.sh"
   "brave.sh"
   "chrome.sh"
   "claude.sh"
