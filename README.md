@@ -7,6 +7,7 @@ Resumo rápido
 - Projetado para ser modular: adicione/remoção de módulos via `scripts/` + `install_apps.sh`.
 
 Pré-requisitos
+- Rode o `sudo dnf upgrade` e reinicie o sistema
 - Fedora Linux (KDE Plasma recomendado para módulos visuais)
 - Acesso a `sudo`
 - Conexão com a internet
