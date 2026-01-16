@@ -44,6 +44,7 @@ run_script "chrome.sh" "Instalando Google Chrome"
 run_script "claude.sh" "Instalando Claude Desktop"
 run_script "mcp.sh" "Instalando OS MCP"
 run_script "audiorelay.sh" "Instalando AudioRelay"
+run_script "audio.sh" "Instalando Audio Tools"
 run_script "git_gh.sh" "Configurando Git e GH"
 
 run_script "kde_tahoe.sh" "Instalando KdeTahoe"
